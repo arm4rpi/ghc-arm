@@ -2,18 +2,12 @@
 
 
 function download() {
-	out=""
-	[ "$3"x != ""x ] && out="--out=$3"
 	[ ! -f "$2/$3" ] && \
-	aria2c -x 16 "$1" --dir="$2" $out
+	aria2c -x 16 "$1" --dir="$2" --out="$3"
 }
 
 function _mkdir() {
 	[ ! -d $1 ] && mkdir -p $1
-}
-
-function _rmmkdir() {
-	[ -d $1 ] && rm -fr $1 && mkdir -p $1
 }
 
 function _mount() {
@@ -34,9 +28,10 @@ function _umount() {
 
 function arm() {
 	cd rootfs 
-	tar xvf ../tmp/alpine-minirootfs-3.9.0-armhf.tar.gz
-	cp /etc/resolv.conf etc
+	tar xvf ../tmp/alpine-arm.tar.gz 1>/dev/null
+	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-arm-static usr/bin
+	cp ../ghc.sh .
 
 	_mount
 	chroot . /ghc.sh
@@ -46,9 +41,10 @@ function arm() {
 
 function aarch64() {
 	cd rootfs 
-	tar xvf ../tmp/alpine-minirootfs-3.9.0-aarch64.tar.gz
-	cp /etc/resolv.conf etc
+	tar xvf ../tmp/alpine-aarch64.tar.gz 1>/dev/null
+	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-aarch64-static usr/bin
+	cp ../ghc.sh .
 
 	_mount
 	chroot . /ghc.sh
@@ -56,23 +52,21 @@ function aarch64() {
 	_umount
 }
 
+_mkdir release
+_mkdir tmp
+_mkdir rootfs
 
-yum install -y aria2
-
-download https://github.com/multiarch/qemu-user-static/releases/download/v4.2.0-4/qemu-aarch64-static /usr/bin
-download https://github.com/multiarch/qemu-user-static/releases/download/v4.2.0-4/qemu-arm-static /usr/bin
-download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/aarch64/alpine-minirootfs-3.9.0-aarch64.tar.gz tmp
-download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/armhf/alpine-minirootfs-3.9.0-armhf.tar.gz tmp
-download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.3-release/ghc-8.6.3-armv7-deb8-linux.tar.xz tmp
-download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.2-release/ghc-8.6.2-aarch64-deb8-linux.tar.xz tmp
-
+download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/aarch64/alpine-minirootfs-3.9.0-aarch64.tar.gz tmp "alpine-aarch64.tar.gz"
+download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/armhf/alpine-minirootfs-3.9.0-armhf.tar.gz tmp "alpine-arm.tar.gz"
+download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.3-release/ghc-8.6.3-armv7-deb8-linux.tar.xz tmp "ghc-arm.tar.xz"
+download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.2-release/ghc-8.6.2-aarch64-deb8-linux.tar.xz tmp "ghc-aarch64.tar.xz"
 
 if [ "$1"x == "arm"x ];then
-	_rmmkdir rootfs
-	cp tmp/ghc-8.6.3-armv7-deb8-linux.tar.xz rootfs/ghc.tar.xz
+	cp tmp/ghc-arm.tar.xz rootfs/ghc.tar.xz
+	echo "RUN ARM"
 	arm
 else
-	_rmmkdir rootfs
-	cp ghc-8.6.2-aarch64-deb8-linux.tar.xz rootfs/ghc.tar.gz
+	cp tmp/ghc-aarch64.tar.xz rootfs/ghc.tar.xz
+	echo "RUN AARCH64"
 	aarch64
 fi
