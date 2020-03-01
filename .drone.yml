@@ -2,10 +2,21 @@ kind: pipeline
 name: ghc-pandoc
 
 steps:
-- name: aarch64
+- name: build-ghc-aarch64
   image: debian:buster
   privileged: true
   commands:
   - du -sh 
   - ./build.sh
-  - du -sh *
+  - du -sh rootfs/*
+- name: docker-ghc-aarch64 
+  image: banzaicloud/drone-kaniko
+  settings:
+    repo: ann17/pandoc-ghc-aarch64
+    auto_tag: true
+    build_args:
+    - COMMIT=${DRONE_COMMIT_SHA}
+    username:
+      from_secret: username
+    password:
+      from_secret: password

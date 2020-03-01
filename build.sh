@@ -19,6 +19,14 @@ function _mount() {
 	mount -t proc proc proc
 }
 
+function _umount() {
+	umount dev/pts
+	umount dev
+	umount sys
+	umount tmp
+	umount proc
+}
+
 function run() {
 	ARCH=$1
 	cd rootfs 
@@ -30,8 +38,10 @@ function run() {
 
 	_mount
 	chroot . /ghc.sh
+	_umount
 }
 
+[ -d rootfs ] && rm -fr rootfs
 _mkdir tmp
 _mkdir rootfs
 
