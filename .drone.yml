@@ -4,6 +4,7 @@ name: haskell-pandoc
 steps:
 - name: aarch64
   image: debian:buster
+  privileged: true
   commands:
   - du -sh 
   - ./build.sh
