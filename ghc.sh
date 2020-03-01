@@ -47,5 +47,3 @@ else
 	cd ../
 	rm -fr ghc-8.6.3
 fi
-
-exit 0

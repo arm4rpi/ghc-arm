@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 function download() {
 	[ ! -f "$2/$3" ] && \
@@ -18,45 +19,21 @@ function _mount() {
 	mount -t proc proc proc
 }
 
-function _umount() {
-	umount dev/pts
-	umount dev
-	umount sys
-	umount tmp
-	umount proc
-}
-
-function arm() {
+function run() {
+	ARCH=$1
 	cd rootfs 
-	tar xvf ../tmp/alpine-arm.tar.gz 1>/dev/null
+	tar xvf ../tmp/alpine-$ARCH.tar.gz
 	cp /etc/resolv.conf etc/
-	cp /usr/bin/qemu-arm-static usr/bin
+	cp /usr/bin/qemu-$ARCH-static usr/bin
 	cp ../ghc.sh .
+	cp ../stack.sh root
 
 	_mount
 	chroot . /ghc.sh
-	#find ./ -type f |grep "ghc" |grep -v "/share/" |xargs tar Jcvf ../release/ghc-8.6.3-armv7-alpine9.0.tar.xz
-	_umount
 }
 
-function aarch64() {
-	cd rootfs 
-	tar xvf ../tmp/alpine-aarch64.tar.gz 1>/dev/null
-	cp /etc/resolv.conf etc/
-	cp /usr/bin/qemu-aarch64-static usr/bin
-	cp ../ghc.sh .
-
-	_mount
-	chroot . /ghc.sh
-	#find ./ -type f |grep "ghc" |xargs tar Jcvf ../release/ghc-8.6.2-aarch64-alpine9.0.tar.xz
-	_umount
-}
-
-_mkdir release
 _mkdir tmp
 _mkdir rootfs
-
-rm -f release/*
 
 apt-get update
 apt-get install -y qemu-user-static aria2 xz-utils
@@ -69,9 +46,9 @@ download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.2-re
 if [ "$1"x == "arm"x ];then
 	cp tmp/ghc-arm.tar.xz rootfs/ghc.tar.xz
 	echo "RUN ARM"
-	arm
+	run arm
 else
 	cp tmp/ghc-aarch64.tar.xz rootfs/ghc.tar.xz
 	echo "RUN AARCH64"
-	aarch64
+	run aarch64
 fi
