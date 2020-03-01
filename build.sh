@@ -35,7 +35,7 @@ function arm() {
 
 	_mount
 	chroot . /ghc.sh
-	find ./ -type f |grep "ghc" |xargs tar Jcvf ../release/ghc-8.6.3-armv7-alpine9.0.tar.xz
+	#find ./ -type f |grep "ghc" |grep -v "/share/" |xargs tar Jcvf ../release/ghc-8.6.3-armv7-alpine9.0.tar.xz
 	_umount
 }
 
@@ -48,13 +48,18 @@ function aarch64() {
 
 	_mount
 	chroot . /ghc.sh
-	find ./ -type f |grep "ghc" |xargs tar Jcvf ../release/ghc-8.6.2-aarch64-alpine9.0.tar.xz
+	#find ./ -type f |grep "ghc" |xargs tar Jcvf ../release/ghc-8.6.2-aarch64-alpine9.0.tar.xz
 	_umount
 }
 
 _mkdir release
 _mkdir tmp
 _mkdir rootfs
+
+rm -f release/*
+
+apt-get update
+apt-get install -y qemu-user-static aria2 xz-utils
 
 download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/aarch64/alpine-minirootfs-3.9.0-aarch64.tar.gz tmp "alpine-aarch64.tar.gz"
 download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/armhf/alpine-minirootfs-3.9.0-armhf.tar.gz tmp "alpine-arm.tar.gz"

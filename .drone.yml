@@ -1,0 +1,10 @@
+kind: pipeline
+name: haskell-pandoc
+
+steps:
+- name: aarch64
+  image: debian:buster
+  commands:
+  - du -sh 
+  - ./build.sh
+  - du -sh *
