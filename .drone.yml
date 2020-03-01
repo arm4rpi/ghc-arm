@@ -1,5 +1,5 @@
 kind: pipeline
-name: haskell-pandoc
+name: ghc-pandoc
 
 steps:
 - name: aarch64
