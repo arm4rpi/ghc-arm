@@ -1,8 +1,12 @@
-all: build aarch64 arm
+all: aarch64 arm
+aarch64: build-aarch64 docker-aarch64
+arm: build-arm docker-arm
 
-build:
-	docker build -t pandoc-ghc:latest .
-arm:
-	docker run --privileged --rm -it -v $(shell pwd)/rootfs:/ghc/rootfs -v $(shell pwd)/release:/ghc/release -v $(shell pwd)/tmp:/ghc/tmp pandoc-ghc:latest arm
-aarch64:
-	docker run --privileged --rm -it -v $(shell pwd)/rootfs:/ghc/rootfs -v $(shell pwd)/release:/ghc/release -v $(shell pwd)/tmp:/ghc/tmp pandoc-ghc:latest
+build-aarch64:
+	drone exec --trusted --pipeline build-aarch64
+docker-aarch64:
+	drone exec --secret-file /tmp/ghc-arm-secret.txt --pipeline docker-aarch64
+build-arm:
+	drone exec --trusted --pipeline build-arm
+docker-arm:
+	drone exec --secret-file /tmp/ghc-arm-secret.txt --pipeline docker-arm

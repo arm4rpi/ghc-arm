@@ -1,5 +1,5 @@
 kind: pipeline
-name: build
+name: build-aarch64
 
 steps:
 - name: build-ghc-aarch64
@@ -11,7 +11,7 @@ steps:
   - du -sh rootfs/*
 
 kind: pipeline
-name: docker
+name: docker-aarch64
 steps:
 - name: docker-ghc-aarch64 
   image: banzaicloud/drone-kaniko
