@@ -21,7 +21,7 @@ EOF
 _repo
 
 apk update
-apk add make libc-dev pcre-dev libc6-compat ncurses5-libs gmp-dev llvm zlib-dev gcc perl g++ xz
+apk add make libc-dev pcre-dev libc6-compat ncurses5-libs gmp-dev llvm zlib-dev gcc perl g++ git aria2 xz
 ln -s /usr/lib/libncurses.so.5 /usr/lib/libtinfo.so.5
 
 
