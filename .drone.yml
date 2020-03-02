@@ -1,6 +1,5 @@
----
 kind: pipeline
-name: build-aarch64
+name: pandoc-ghc
 
 steps:
 - name: build-ghc-aarch64
@@ -11,10 +10,6 @@ steps:
   - ./build.sh
   - du -sh rootfs/*
 
----
-kind: pipeline
-name: docker-aarch64
-steps:
 - name: docker-ghc-aarch64 
   image: banzaicloud/drone-kaniko
   settings:
@@ -25,11 +20,6 @@ steps:
     password:
       from_secret: password
 
----
-kind: pipeline
-name: build-arm
-
-steps:
 - name: build-ghc-arm
   image: debian:buster
   privileged: true
@@ -38,10 +28,6 @@ steps:
   - ./build.sh arm
   - du -sh rootfs/*
 
----
-kind: pipeline
-name: docker-arm
-steps:
 - name: docker-ghc-arm
   image: banzaicloud/drone-kaniko
   settings:
