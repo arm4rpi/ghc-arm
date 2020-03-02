@@ -1,5 +1,5 @@
 kind: pipeline
-name: ghc-pandoc
+name: build
 
 steps:
 - name: build-ghc-aarch64
@@ -9,6 +9,10 @@ steps:
   - du -sh 
   - ./build.sh
   - du -sh rootfs/*
+
+kind: pipeline
+name: docker
+steps:
 - name: docker-ghc-aarch64 
   image: banzaicloud/drone-kaniko
   settings:

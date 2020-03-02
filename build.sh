@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function download() {
 	[ ! -f "$2/$3" ] && \
 	aria2c -x 16 "$1" --dir="$2" --out="$3"
