@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: build-aarch64
 
@@ -10,6 +11,7 @@ steps:
   - ./build.sh
   - du -sh rootfs/*
 
+---
 kind: pipeline
 name: docker-aarch64
 steps:
@@ -18,8 +20,33 @@ steps:
   settings:
     repo: ann17/pandoc-ghc-aarch64
     auto_tag: true
-    build_args:
-    - COMMIT=${DRONE_COMMIT_SHA}
+    username:
+      from_secret: username
+    password:
+      from_secret: password
+
+---
+kind: pipeline
+name: build-arm
+
+steps:
+- name: build-ghc-arm
+  image: debian:buster
+  privileged: true
+  commands:
+  - du -sh 
+  - ./build.sh arm
+  - du -sh rootfs/*
+
+---
+kind: pipeline
+name: docker-arm
+steps:
+- name: docker-ghc-arm
+  image: banzaicloud/drone-kaniko
+  settings:
+    repo: ann17/pandoc-ghc-arm
+    auto_tag: true
     username:
       from_secret: username
     password:
