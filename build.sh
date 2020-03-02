@@ -28,7 +28,7 @@ function _umount() {
 function run() {
 	ARCH=$1
 	cd rootfs 
-	tar xvf ../tmp/alpine-$ARCH.tar.gz
+	tar xvf ../tmp/ubuntu-$ARCH.tar.gz
 	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-$ARCH-static usr/bin
 	cp ../ghc.sh .
@@ -46,17 +46,13 @@ _mkdir rootfs
 apt-get update
 apt-get install -y qemu-user-static aria2 xz-utils
 
-download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/aarch64/alpine-minirootfs-3.9.0-aarch64.tar.gz tmp "alpine-aarch64.tar.gz"
-download http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/armhf/alpine-minirootfs-3.9.0-armhf.tar.gz tmp "alpine-arm.tar.gz"
-download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.3-release/ghc-8.6.3-armv7-deb8-linux.tar.xz tmp "ghc-arm.tar.xz"
-download https://github.com/commercialhaskell/ghc/releases/download/ghc-8.6.2-release/ghc-8.6.2-aarch64-deb8-linux.tar.xz tmp "ghc-aarch64.tar.xz"
+download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-armhf.tar.gz tmp "ubuntu-arm.tar.gz"
+download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-arm64.tar.gz tmp "ubuntu-aarch64.tar.gz"
 
 if [ "$1"x == "arm"x ];then
-	cp tmp/ghc-arm.tar.xz rootfs/ghc.tar.xz
 	echo "RUN ARM"
 	run arm
 else
-	cp tmp/ghc-aarch64.tar.xz rootfs/ghc.tar.xz
 	echo "RUN AARCH64"
 	run aarch64
 fi

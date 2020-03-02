@@ -11,3 +11,8 @@ see:
 ref:
 
 - https://www.jianshu.com/p/ee7ba9a188d0
+
+use ubuntu 19.10 instead of alpine 9.0:
+
+- ubuntu 19.10 can install ghc 8.6.5 via apt
+- alpine 9.0 armv7l can not build ghc
