@@ -16,3 +16,18 @@ use ubuntu 19.10 instead of alpine 9.0:
 
 - ubuntu 19.10 can install ghc 8.6.5 via apt
 - alpine 9.0 armv7l can not build ghc
+
+## local build
+
+prepare `/tmp/ghc-arm-secret.txt` for docker push:
+
+```
+username=xxx
+password=xxx
+```
+
+then run
+
+```
+make
+```
