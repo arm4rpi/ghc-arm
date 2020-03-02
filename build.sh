@@ -44,7 +44,7 @@ _mkdir tmp
 _mkdir rootfs
 
 apt-get update
-apt-get install -y qemu-user-static aria2 xz-utils
+apt-get install -y qemu-user-static aria2 xz-utils curl
 
 download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-armhf.tar.gz tmp "ubuntu-arm.tar.gz"
 download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-arm64.tar.gz tmp "ubuntu-aarch64.tar.gz"
