@@ -9,6 +9,7 @@ steps:
   - du -sh 
   - ./build.sh
   - du -sh rootfs/*
+  - du -sh rootfs/root/*
 
 - name: docker-ghc-aarch64 
   image: banzaicloud/drone-kaniko
