@@ -35,7 +35,6 @@ function run() {
 	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-$ARCH-static usr/bin
 	cp ../ghc.sh .
-	cp ../stack.sh root
 
 	_mount
 	chroot . /ghc.sh
