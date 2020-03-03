@@ -2,13 +2,14 @@
 
 set -e
 
+# 函数中做判断要有完整的 if else 结构，要有返回值，否则将受 set -e 影响
 function download() {
 	[ ! -f "$2/$3" ] && \
-	aria2c -x 16 "$1" --dir="$2" --out="$3"
+	aria2c -x 16 "$1" --dir="$2" --out="$3" || return 0
 }
 
 function _mkdir() {
-	[ ! -d $1 ] && mkdir -p $1
+	[ ! -d $1 ] && mkdir -p $1 || return 0
 }
 
 function _mount() {
