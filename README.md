@@ -2,7 +2,16 @@
 
 [![Build Status](https://ci.annhe.net/api/badges/arm4rpi/ghc-arm/status.svg)](https://ci.annhe.net/arm4rpi/ghc-arm) ![GHC Arm](https://github.com/arm4rpi/ghc-arm/workflows/GHC%20Arm/badge.svg)
 
-use for pandoc ci.
+use for pandoc ci. available tag
+
+```
+ann17/pandoc-ghc-arm:cabal-ghc8.6.5
+ann17/pandoc-ghc-arm:cabal-ghc8.0.2
+ann17/pandoc-ghc-arm:statck-ghc8.6.3
+ann17/pandoc-ghc-aarch64:cabal-ghc8.6.5
+ann17/pandoc-ghc-aarch64:cabal-ghc8.0.2
+ann17/pandoc-ghc-aarch64:statck-ghc8.6.2
+```
 
 see:
 
