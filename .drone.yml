@@ -27,7 +27,7 @@ steps:
   privileged: true
   commands:
   - du -sh 
-  - ./ubuntu-19.10/build.sh 19.10 arm
+  - ./ubuntu/build.sh 19.10 arm
   - du -sh rootfs/*
 
 - name: docker-ghc-arm-ubuntu-19-10
@@ -66,7 +66,7 @@ steps:
   privileged: true
   commands:
   - du -sh 
-  - ./ubuntu-19.10/build.sh 18.04 arm
+  - ./ubuntu/build.sh 18.04 arm
   - du -sh rootfs/*
 
 - name: docker-ghc-arm-ubuntu-18-04
@@ -74,6 +74,45 @@ steps:
   settings:
     repo: ann17/pandoc-ghc-arm
     tags: ubuntu-18.04
+    cache: true
+    username:
+      from_secret: username
+    password:
+      from_secret: password
+
+- name: ghc-aarch64-alpine-3-9
+  image: debian:buster
+  privileged: true
+  commands:
+  - du -sh 
+  - ./alpine-3.9/build.sh
+  - du -sh rootfs/*
+  - du -sh rootfs/var/cache/*
+
+- name: docker-ghc-aarch64-alpine-3-9
+  image: banzaicloud/drone-kaniko
+  settings:
+    repo: ann17/pandoc-ghc-aarch64
+    tags: alpine-3.9
+    cache: true
+    username:
+      from_secret: username
+    password:
+      from_secret: password
+
+- name: ghc-arm-alpine-3-9
+  image: debian:buster
+  privileged: true
+  commands:
+  - du -sh 
+  - ./alpine-3.9/build.sh arm
+  - du -sh rootfs/*
+
+- name: docker-ghc-arm-alpine-3-9
+  image: banzaicloud/drone-kaniko
+  settings:
+    repo: ann17/pandoc-ghc-arm
+    tags: alpine-3.9
     cache: true
     username:
       from_secret: username
