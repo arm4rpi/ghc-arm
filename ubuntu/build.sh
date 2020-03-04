@@ -28,6 +28,12 @@ function _umount() {
 	umount proc
 }
 
+function _down() {
+	version="$1"
+	download http://cdimage.ubuntu.com/ubuntu-base/releases/$version/release/ubuntu-base-$version-base-armhf.tar.gz tmp "ubuntu-arm.tar.gz"
+	download http://cdimage.ubuntu.com/ubuntu-base/releases/$version/release/ubuntu-base-$version-base-arm64.tar.gz tmp "ubuntu-aarch64.tar.gz"
+}
+
 function run() {
 	ARCH=$1
 	cd rootfs 
@@ -49,10 +55,12 @@ _mkdir rootfs
 apt-get update
 apt-get install -y qemu-user-static aria2 xz-utils curl
 
-download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-armhf.tar.gz tmp "ubuntu-arm.tar.gz"
-download http://cdimage.ubuntu.com/ubuntu-base/releases/19.10/release/ubuntu-base-19.10-base-arm64.tar.gz tmp "ubuntu-aarch64.tar.gz"
 
-if [ "$1"x == "arm"x ];then
+[ $# -lt 1 ] && echo "$0 version arch" && exit 1
+
+_down "$1"
+
+if [ "$2"x == "arm"x ];then
 	echo "RUN ARM"
 	run arm
 else

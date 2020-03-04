@@ -1,17 +1,17 @@
-name: Pandoc Arm
+name: GHC Arm
 
 on: [push]
 
 jobs:
 
-  armv7l:
+  armv7l-ubuntu-19.10:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: armv7l
-      run: ./ubuntu-19.10/build.sh arm
+      run: sudo ./ubuntu-19.10/build.sh 19.10 arm
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -20,14 +20,14 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "ubuntu-19.10"
 
-  aarch64:
+  aarch64-ubuntu-19.10:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: armv7l
-      run: ./ubuntu-19.10/build.sh
+      run: sudo ./ubuntu-19.10/build.sh 19.10
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -35,3 +35,35 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "ubuntu-19.10"
+
+  armv7l-ubuntu-18.04:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: armv7l
+      run: sudo ./ubuntu-18.04/build.sh 18.04 arm
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ann17/pandoc-ghc-arm
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "ubuntu-18.04"
+
+  aarch64-ubuntu-18.04:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: armv7l
+      run: sudo ./ubuntu-18.04/build.sh 18.04
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ann17/pandoc-ghc-aarch64
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "ubuntu-18.04"
