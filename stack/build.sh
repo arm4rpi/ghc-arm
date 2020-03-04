@@ -30,7 +30,7 @@ function _umount() {
 function run() {
 	ARCH=$1
 	cd rootfs 
-	tar xvf ../tmp/alpine-$ARCH.tar.gz
+	tar xvf ../tmp/ubuntu-$ARCH.tar.gz
 	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-$ARCH-static usr/bin
 	cp $SCRIPTDIR/ghc.sh .
