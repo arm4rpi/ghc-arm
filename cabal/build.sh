@@ -17,7 +17,7 @@ function _mount() {
 	mount -t devpts devpts dev/pts
 	mount -t sysfs sysfs sys
 	mount -t tmpfs tmpfs tmp
-	mount -t proc proc proc
+	#mount -t proc proc proc
 }
 
 function _umount() {
@@ -25,7 +25,7 @@ function _umount() {
 	umount dev
 	umount sys
 	umount tmp
-	umount proc
+	#umount proc
 }
 
 function _down() {
