@@ -3,7 +3,7 @@
 set -e
 
 apt-get update
-apt-get install -y build-essential libtinfo5 git aria2 xz-utils
+apt-get install -y build-essential libtinfo5 git aria2 xz-utils curl
 
 ARCH=`uname -m`
 
@@ -24,5 +24,7 @@ else
 	cd ../
 	rm -fr ghc-8.6.3
 fi
+
+/root/stack.sh
 
 exit $?
