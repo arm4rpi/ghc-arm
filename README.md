@@ -1,6 +1,6 @@
 # ghc-arm
 
-[![Build Status](https://ci.annhe.net/api/badges/arm4rpi/ghc-arm/status.svg)](https://ci.annhe.net/arm4rpi/ghc-arm)
+[![Build Status](https://ci.annhe.net/api/badges/arm4rpi/ghc-arm/status.svg)](https://ci.annhe.net/arm4rpi/ghc-arm) ![GHC Arm](https://github.com/arm4rpi/ghc-arm/workflows/GHC%20Arm/badge.svg)
 
 use for pandoc ci.
 
