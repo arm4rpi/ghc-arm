@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -e
+
 function download() {
 	[ ! -f "$2/$3" ] && \
-	aria2c -x 16 "$1" --dir="$2" --out="$3"
+	aria2c -x 16 "$1" --dir="$2" --out="$3" || return 0
 }
 
 function _mkdir() {
-	[ ! -d $1 ] && mkdir -p $1
+	[ ! -d $1 ] && mkdir -p $1 || return 0
 }
 
 function _mount() {

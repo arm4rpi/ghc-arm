@@ -25,8 +25,7 @@ function _umount() {
 	umount dev
 	umount sys
 	umount tmp
-	umount -l proc
-	umount -f proc
+	umount proc
 }
 
 function _down() {
