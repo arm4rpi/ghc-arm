@@ -1,0 +1,37 @@
+name: Pandoc Arm
+
+on: [push]
+
+jobs:
+
+  armv7l:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: armv7l
+      run: ./ubuntu-19.10/build.sh arm
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ann17/pandoc-ghc-arm
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "ubuntu-19.10"
+
+  aarch64:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: armv7l
+      run: ./ubuntu-19.10/build.sh
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ann17/pandoc-ghc-aarch64
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "ubuntu-19.10"

@@ -34,13 +34,14 @@ function run() {
 	tar xvf ../tmp/ubuntu-$ARCH.tar.gz
 	cp /etc/resolv.conf etc/
 	cp /usr/bin/qemu-$ARCH-static usr/bin
-	cp ../ghc.sh .
+	cp $SCRIPTDIR/ghc.sh .
 
 	_mount
 	chroot . /ghc.sh
 	_umount
 }
 
+SCRIPTDIR=`cd $(dirname $0);pwd`
 [ -d rootfs ] && rm -fr rootfs
 _mkdir tmp
 _mkdir rootfs

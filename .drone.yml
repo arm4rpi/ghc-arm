@@ -2,39 +2,39 @@ kind: pipeline
 name: pandoc-ghc
 
 steps:
-- name: build-ghc-aarch64
+- name: ghc-aarch64-ubuntu-19-10
   image: debian:buster
   privileged: true
   commands:
   - du -sh 
-  - ./build.sh
+  - ./ubuntu-19.10/build.sh
   - du -sh rootfs/*
   - du -sh rootfs/var/cache/*
 
-- name: docker-ghc-aarch64 
+- name: docker-ghc-aarch64-ubuntu-19-10 
   image: banzaicloud/drone-kaniko
   settings:
     repo: ann17/pandoc-ghc-aarch64
-    auto_tag: true
+    tags: ubuntu-19.10
     cache: true
     username:
       from_secret: username
     password:
       from_secret: password
 
-- name: build-ghc-arm
+- name: ghc-arm-ubuntu-19.10
   image: debian:buster
   privileged: true
   commands:
   - du -sh 
-  - ./build.sh arm
+  - ./ubuntu-19.10/build.sh arm
   - du -sh rootfs/*
 
-- name: docker-ghc-arm
+- name: docker-ghc-arm-ubuntu-19-10
   image: banzaicloud/drone-kaniko
   settings:
     repo: ann17/pandoc-ghc-arm
-    auto_tag: true
+    tags: ubuntu-19.10
     cache: true
     username:
       from_secret: username
