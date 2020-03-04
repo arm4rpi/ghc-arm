@@ -3,7 +3,7 @@
 set -e
 
 apt-get update
-apt-get install -y build-essential libtinfo5 git aria2 xz-utils curl
+apt-get install -y build-essential llvm-6.0 libtinfo5 git aria2 xz-utils curl
 
 ARCH=`uname -m`
 
