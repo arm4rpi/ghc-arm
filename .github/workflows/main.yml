@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./cabal/build.sh 19.10 arm
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./cabal/build.sh 19.10
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -42,7 +42,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./cabal/build.sh 18.04 arm
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -58,7 +58,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./cabal/build.sh 18.04
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -74,7 +74,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./stack/build.sh arm
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -90,7 +90,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: armv7l
+    - name: build
       run: sudo ./stack/build.sh
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master

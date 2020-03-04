@@ -11,6 +11,7 @@ ls -l /
 tar xvf /ghc.tar.xz
 rm -f ghc.tar.xz
 if [ "$ARCH"x == "aarch64"x ];then
+	apt-get install -y libnuma1
 	cd /ghc-8.6.2
    ./configure
 	make install
