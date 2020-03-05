@@ -11,6 +11,7 @@ ann17/pandoc-ghc-arm:statck-ghc8.6.3
 ann17/pandoc-ghc-aarch64:cabal-ghc8.6.5
 ann17/pandoc-ghc-aarch64:cabal-ghc8.0.2
 ann17/pandoc-ghc-aarch64:statck-ghc8.6.2
+ann17/pandoc-ghc-aarch64:alpinestatck-ghc8.6.2
 ```
 
 see:
